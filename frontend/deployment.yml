@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+  namespace: techverito
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: deependrasingh7773/frontend:latest
+          ports:
+            - containerPort: 3000
+          command: ["sh", "-c", "npm install && npm start"]
+          env:
+            - name: REACT_APP_SERVER_URL
+              #value: "http://afe0169f3b2a84932acb66fb8b163176-1485455773.us-east-1.elb.amazonaws.com:80/employees"
+              value: "http://ab4aafb1ed2224e9c97e81a76c4b718a-1017080791.us-east-1.elb.amazonaws.com:8080/employees"
